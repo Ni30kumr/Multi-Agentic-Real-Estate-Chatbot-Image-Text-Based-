@@ -68,53 +68,67 @@ Bash
 python3 -m venv venv
 source venv/bin/activate
 
-# For Windows
-python -m venv venv
-.\venv\Scripts\activate
-3. Install Dependencies
+2. Install Dependencies
 Install the required Python packages using the requirements.txt file:
 
-Bash
-
+bash
+Copy
+Edit
 pip install -r requirements.txt
-4. Create a .env file
+3. Create a .env File
 You need to create a .env file in the root directory of the project to store your API keys. Get your API keys for:
 
-Google Cloud: Obtain a GOOGLE_API_KEY for accessing the Gemini model.
-Tavily Search: Obtain a TAVILY_API_KEY for web search capabilities.
-Create a file named .env in the project root and add the following lines, replacing "YOUR_GOOGLE_API_KEY" and "YOUR_TAVILY_API_KEY" with your actual keys:
+Google Cloud (Gemini): Obtain a GOOGLE_API_KEY for accessing the Gemini model.
 
+Tavily Search: Obtain a TAVILY_API_KEY for web search capabilities.
+
+Create a file named .env in the project root and add the following lines, replacing "YOUR_GOOGLE_API_KEY" and "YOUR_TAVILY_API_KEY" with your actual keys:
 
 GOOGLE_API_KEY="YOUR_GOOGLE_API_KEY"
 TAVILY_API_KEY="YOUR_TAVILY_API_KEY"
+4. Running the Application
+Make sure your virtual environment is activated and then run the following command to start the Streamlit application:
 
-5. File Structure
-The main files and directories in this project are:
-
-├── .gitignore          # Specifies intentionally untracked files that Git should ignore
-├── app.py              # The main Streamlit application and LangGraph agent logic
-├── main.py             # just python code for testing purpose
-├── requirements.txt    # Lists the project's Python dependencies
-└── uploaded_image.jpg  # Placeholder or saved uploaded image
-
-Running the Application
-To run the Streamlit application, make sure your virtual environment is activated and then run:
 streamlit run app.py
-
 This will start the Streamlit development server, and your web browser should open automatically to the application interface.
 
 Usage
 Enter your tenancy law question in the text input field.
+
 Optionally, upload a property image if your query relates to analyzing an image for issues.
-Click the "Submit Query" button to get a response from the appropriate agent.
+
+Click the Submit Query button to get a response from the appropriate agent.
+
 Tools and Platforms Used
-Based on the code and the allowed tools mentioned in the assessment document, this project utilizes:   
+Based on the code and the allowed tools mentioned in the assessment document, this project utilizes:
 
-AI Platforms: LangChain, LangGraph, Google Gemini 1.5 Flash.
-Image Analysis: Implicitly handled by the vision capabilities of Google Gemini 1.5 Flash.
-Other Tools: Streamlit (for UI), python-dotenv (for environment variables), Tavily Search (for web search).
-This README serves as documentation for the project, outlining the tools used, the logic behind agent switching, how image-based issue detection works, and covering the use case examples  
+AI Platforms:
 
+LangChain
 
+LangGraph
 
+Google Gemini 1.5 Flash (for both text and image analysis)
 
+Other Tools:
+
+Streamlit (for UI)
+
+python-dotenv (for environment variables management)
+
+Tavily Search (for web search capabilities)
+
+Functionality
+Agent Workflow
+FAQ Agent: Handles tenancy law-related questions by fetching relevant information from the Tavily search results and processing it using the Google Gemini model.
+
+Image Agent: Processes property images, analyzes them for potential issues, and provides suggestions for fixes, using the Gemini model's vision capabilities.
+
+Clarification Node: If the user’s query is unclear, the system asks for clarification to better route the query to the correct agent.
+
+Example Questions
+"What is the ideal advance rent to pay for a flat in the US?"
+
+"How much notice do I need to give before vacating in the US?"
+
+"Can you analyze this property image for any issues?"
